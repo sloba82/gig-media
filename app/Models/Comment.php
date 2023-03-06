@@ -18,4 +18,13 @@ class Comment extends Model
         'content',
         'abbreviation'
     ];
+
+
+    public function setContentAttribute($value)
+    {
+       $this->attributes['content'] = strtolower($value);
+    }
+
+
+
 }

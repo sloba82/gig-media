@@ -6,8 +6,9 @@ namespace App\Http\Resources;
 // use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PostResource extends ResourceCollection
+class GetResource extends ResourceCollection
 {
+    public static $wrap = 'result';
 
     private $pagination;
 
@@ -26,7 +27,6 @@ class PostResource extends ResourceCollection
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    public static $wrap = 'result';
 
     public function toArray($request): array
     {

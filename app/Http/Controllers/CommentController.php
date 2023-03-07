@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\PostService;
+use App\Services\CommentService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\GetResource;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
-    public function index(Request $request, PostService $postService)
+    public function index(Request $request, CommentService $commentService)
     {
 
         $filters = $request->all();
+
         try {
-            $model = $postService->getResourceWithPagination($filters);
+            $model = $commentService->getResourceWithPagination($filters);
         } catch (\Exception $exception) {
-            Log::error('Error while getting Post' . $exception->getMessage());
+            Log::error('Error while getting Comment' . $exception->getMessage());
             return response()->json('error', 500);
         }
 

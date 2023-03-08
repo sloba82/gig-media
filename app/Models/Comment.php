@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\ParseStringHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -16,14 +17,34 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
+        'post_id',
         'content',
         'abbreviation'
     ];
 
 
+    /**
+     * setContentAttribute
+     *
+     * @param  string $value
+     * @return void
+     */
     public function setContentAttribute($value)
     {
         $this->attributes['content'] = strtolower($value);
+    }
+
+    /**
+     * setAbbreviationAttribute
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setAbbreviationAttribute($value)
+    {
+        $content = explode(' ', $value);
+        $parseStringHelper = new ParseStringHelper;
+        $this->attributes['abbreviation'] = strtolower($parseStringHelper->firstCharString($content));
     }
 
     /**

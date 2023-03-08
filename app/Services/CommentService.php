@@ -26,6 +26,7 @@ class CommentService extends AbstractService {
      */
     public function getResourceWithPagination(array $filters)
     {
+        $this->withRelation = isset($filters['with']) ? $filters['with'] : '';
         return $this->modelWithPagination($filters);
     }
 

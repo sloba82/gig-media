@@ -26,6 +26,11 @@ class PostService extends AbstractService {
      */
     public function getResourceWithPagination(array $filters)
     {
+        if((isset($filters['with']) && $filters['with'] == 'comments') || isset($filters['comment'])) {
+            $this->withRelation = 'comments';
+        }
+
+        $this->withRelationFilter = isset($filters['comment']) ? $filters['comment'] : '';
         return $this->modelWithPagination($filters);
     }
 

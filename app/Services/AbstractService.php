@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Schema;
 abstract class AbstractService
 {
 
-    protected $model;
+    protected $withRelation;
+
+    protected $withRelationFilter;
+
+    private $model;
 
     /**
      * AbstractCrudService constructor.
@@ -48,8 +52,15 @@ abstract class AbstractService
 
         $model = $this->model::where($tableFilters);
 
-        if (isset($filters['with'])) {
-             $model->with($filters['with']);
+        if ($this->withRelation) {
+             $model->with($this->withRelation);
+        }
+
+        if($this->withRelationFilter){
+            $filter = $this->withRelationFilter;
+            $model->with($this->withRelation, function($query) use( $filter) {
+                $query->where('content', 'like', '%'. $filter .'%');
+            });
         }
 
         if (in_array($sortable, $columns)) {

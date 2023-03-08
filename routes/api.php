@@ -21,6 +21,10 @@ use App\Http\Controllers\CommentController;
 // });
 
 Route::get('/posts', [PostController::class, 'index']);
+Route::delete('/posts/{post}', [PostController::class, 'delete']);
 
 Route::get('/comments', [CommentController::class, 'index']);
+Route::delete('/comments/{comment}', [CommentController::class, 'delete']);
+Route::post('/comments', [CommentController::class, 'create']);
+
 

@@ -14,7 +14,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'topic' => $this->faker->unique()->sentence(10),
+            'topic' => $this->faker->unique()->sentence(5),
         ];
     }
 }

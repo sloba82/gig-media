@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 abstract class AbstractService
 {
@@ -52,13 +53,16 @@ abstract class AbstractService
 
         $model = $this->model::where($tableFilters);
 
-        if ($this->withRelation) {
+        if ($this->withRelation && !$this->withRelationFilter) {
              $model->with($this->withRelation);
+            // $model->with($this->withRelation, function($query) {
+            //     $query->query(DB:raw(' limit 10'));
+            // });
         }
 
         if($this->withRelationFilter){
             $filter = $this->withRelationFilter;
-            $model->with($this->withRelation, function($query) use( $filter) {
+            $model->whereHas($this->withRelation, function($query) use( $filter) {
                 $query->where('content', 'like', '%'. $filter .'%');
             });
         }

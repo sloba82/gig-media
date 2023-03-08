@@ -7,6 +7,7 @@ use App\Services\AbstractService;
 class CommentService extends AbstractService {
 
 
+    private $model;
     /**
      * __construct
      *
@@ -15,6 +16,7 @@ class CommentService extends AbstractService {
      */
     public function __construct(Comment $model)
     {
+
         parent::__construct($model);
     }
 
@@ -29,5 +31,7 @@ class CommentService extends AbstractService {
         $this->withRelation = isset($filters['with']) ? $filters['with'] : '';
         return $this->modelWithPagination($filters);
     }
+
+
 
 }

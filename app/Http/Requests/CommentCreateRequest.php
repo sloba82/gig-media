@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\RuleAbbreviation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentCreateRequest extends FormRequest
@@ -23,10 +24,10 @@ class CommentCreateRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'post_id' => 'required|exists:posts,id',
-            'content' => 'required|string',
-            'abbreviation' => 'required|unique:comments|string',
+            'content' => ['required','string' , new RuleAbbreviation()]
         ];
     }
 }

@@ -1,8 +1,6 @@
 <?php
 namespace App\Helpers;
 
-use PhpParser\Node\Expr\Cast\String_;
-
 class ParseStringHelper
 {
     public function firstCharString(array $combination): String

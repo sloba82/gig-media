@@ -20,8 +20,13 @@ class Post extends Model
     /**
      * Get the comments for the blog post.
      */
-    public function comments(): HasMany
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
+    // public function limitedComments()
+    // {
+    //     return $this->comments();
+    // }
 }

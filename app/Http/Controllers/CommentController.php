@@ -12,14 +12,8 @@ use App\Http\Requests\CommentCreateRequest;
 
 class CommentController extends Controller
 {
-    /**
-     * index
-     *
-     * @param  CommentGetRequest $request
-     * @param  CommentService $commentService
-     * @return GetResource
-     */
-    public function index(CommentGetRequest $request, CommentService $commentService): GetResource
+
+    public function index(CommentGetRequest $request, CommentService $commentService)
     {
 
         $filters = $request->validated();
@@ -33,28 +27,37 @@ class CommentController extends Controller
         return new GetResource($model);
     }
 
-    public function delete(Comment $comment)
+    public function delete($id)
     {
-
         try {
-            $comment->delete();
+            if (Comment::where('id', $id)->exists()) {
+                Comment::find($id)->delete();
+                return true;
+            }
         } catch (\Exception $exception) {
             Log::error('Error while deleting Comment' . $exception->getMessage());
             return response()->json('error', 500);
         }
 
-        return response()->json('', 204);
+        return response()->json('error', 500);
     }
 
     public function create(CommentCreateRequest $request, Comment $comment)
     {
+
         $input = $request->all();
-        $comment::create([
-            'post_id' => $input['post_id'],
-            'content' => $input['content'],
-            'abbreviation' => $input['content'],
-        ]);
+        try {
+            $input = $request->all();
+            $comment::create([
+                'post_id' => $input['post_id'],
+                'content' => $input['content'],
+                'abbreviation' => $input['content'],
+            ]);
+        } catch (\Exception $exception) {
+            Log::error('Error while Creating Comment' . $exception->getMessage());
+            return response()->json('error', 500);
+        }
 
-
+        return response()->json('', 201);
     }
 }

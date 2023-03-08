@@ -28,7 +28,7 @@ class GetResource extends ResourceCollection
      */
 
 
-    public function toArray($request): array
+    public function toArray($request)
     {
         return $this->collection->toArray();
     }
@@ -36,7 +36,7 @@ class GetResource extends ResourceCollection
     public function with($request)
     {
         return [
-            'count' =>  $this->pagination
+            'count' => $this->pagination
         ];
     }
 }

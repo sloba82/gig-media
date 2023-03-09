@@ -18,15 +18,11 @@ class Post extends Model
     protected $fillable = ['topic'];
 
     /**
-     * Get the comments for the blog post.
+     * Get the comments.
      */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // public function limitedComments()
-    // {
-    //     return $this->comments();
-    // }
 }

@@ -9,10 +9,25 @@ use Illuminate\Support\Facades\DB;
 abstract class AbstractService
 {
 
+    /**
+     * withRelation
+     *
+     * @var string
+     */
     protected $withRelation;
 
+    /**
+     * withRelationFilter
+     *
+     * @var string
+     */
     protected $withRelationFilter;
 
+    /**
+     * model
+     *
+     * @var Object
+     */
     private $model;
 
     /**
@@ -30,7 +45,7 @@ abstract class AbstractService
      * @param  array $filters
      * @return mixed
      */
-    public function modelWithPagination(array $filters)
+    public function modelWithPagination(array $filters): mixed
     {
         $limit = isset($filters['limit']) ? (int) $filters['limit'] : 10;
         $sortable = isset($filters['sort']) ?  $filters['sort'] : '';
@@ -54,23 +69,28 @@ abstract class AbstractService
         $model = $this->model::where($tableFilters);
 
         if ($this->withRelation && !$this->withRelationFilter) {
-             $model->with($this->withRelation);
-            // $model->with($this->withRelation, function($query) {
-            //     $query->query(DB:raw(' limit 10'));
-            // });
+            $model->with($this->withRelation);
         }
 
-        if($this->withRelationFilter){
+        if ($this->withRelationFilter) {
             $filter = $this->withRelationFilter;
-            $model->whereHas($this->withRelation, function($query) use( $filter) {
-                $query->where('content', 'like', '%'. $filter .'%');
+            $model->whereHas($this->withRelation, function ($query) use ($filter) {
+                $query->where('content', 'like', '%' . $filter . '%');
             });
         }
 
         if (in_array($sortable, $columns)) {
-             $model->orderBy($sortable, $direction);
+            $model->orderBy($sortable, $direction);
         }
 
-        return $model->paginate($limit);
+        $model = $model->paginate($limit);
+
+        if ($this->withRelation) {
+            foreach ($model as $item) {
+                $item->setRelation($this->withRelation,  $item->{$this->withRelation}()->limit(10)->get());
+            }
+        }
+
+        return $model;
     }
 }

@@ -9,11 +9,21 @@ use App\Http\Resources\GetResource;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CommentGetRequest;
 use App\Http\Requests\CommentCreateRequest;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Exception\JsonException;
+use Symfony\Component\HttpFoundation\JsonResponse as HttpFoundationJsonResponse;
 
 class CommentController extends Controller
 {
 
-    public function index(CommentGetRequest $request, CommentService $commentService)
+    /**
+     * index
+     *
+     * @param  CommentGetRequest $request
+     * @param  CommentService $commentService
+     * @return void
+     */
+    public function index(CommentGetRequest $request, CommentService $commentService): GetResource
     {
 
         $filters = $request->validated();
@@ -27,7 +37,13 @@ class CommentController extends Controller
         return new GetResource($model);
     }
 
-    public function delete($id)
+    /**
+     * delete
+     *
+     * @param integer $id
+     * @return mixed
+     */
+    public function delete($id): mixed
     {
         try {
             if (Comment::where('id', $id)->exists()) {
@@ -39,12 +55,18 @@ class CommentController extends Controller
             return response()->json('error', 500);
         }
 
-        return response()->json('error', 500);
+        return response()->json('error', 200);
     }
 
-    public function create(CommentCreateRequest $request, Comment $comment)
+    /**
+     * create
+     *
+     * @param  CommentCreateRequest $request
+     * @param  Comment $comment
+     * @return JsonResponse
+     */
+    public function create(CommentCreateRequest $request, Comment $comment): JsonResponse
     {
-
         $input = $request->all();
         try {
             $input = $request->all();
@@ -58,6 +80,6 @@ class CommentController extends Controller
             return response()->json('error', 500);
         }
 
-        return response()->json('', 201);
+        return response()->json([], 201);
     }
 }

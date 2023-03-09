@@ -8,7 +8,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class RuleAbbreviation implements Rule
 {
+    /**
+     * parseStringHelper
+     *
+     * @var Object
+     */
     private $parseStringHelper;
+
     /**
      * Create a new rule instance.
      *
@@ -26,10 +32,11 @@ class RuleAbbreviation implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value  )
+    public function passes($attribute, $value)
     {
         $content = explode(' ', $value);
         $abbreviation = strtolower($this->parseStringHelper->firstCharString($content));
+
         if(Comment::where('abbreviation', $abbreviation)->exists()){
             return false;
         }

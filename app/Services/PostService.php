@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Post;
 use App\Services\AbstractService;
 
-class PostService extends AbstractService {
+class PostService extends AbstractService
+{
 
 
     /**
@@ -21,17 +23,16 @@ class PostService extends AbstractService {
     /**
      * getResourceWithPagination
      *
-     * @param  array $filters
+     * @param array $filters
      * @return mixed
      */
-    public function getResourceWithPagination(array $filters)
+    public function getResourceWithPagination(array $filters): mixed
     {
-        if((isset($filters['with']) && $filters['with'] == 'comments') || isset($filters['comment'])) {
+        if ((isset($filters['with']) && $filters['with'] == 'comments') || isset($filters['comment'])) {
             $this->withRelation = 'comments';
         }
 
         $this->withRelationFilter = isset($filters['comment']) ? $filters['comment'] : '';
         return $this->modelWithPagination($filters);
     }
-
 }

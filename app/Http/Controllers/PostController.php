@@ -12,8 +12,14 @@ use App\Models\Post;
 class PostController extends Controller
 {
 
-
-    public function index(PostGetRequest $request, PostService $postService)
+    /**
+     * index
+     *
+     * @param  PostGetRequest $request
+     * @param  PostService $postService
+     * @return GetResource
+     */
+    public function index(PostGetRequest $request, PostService $postService): GetResource
     {
         $filters = $request->validated();
         try {
@@ -26,7 +32,13 @@ class PostController extends Controller
         return new GetResource($model);
     }
 
-    public function delete($id)
+    /**
+     * delete
+     *
+     * @param  integer $id
+     * @return mixed
+     */
+    public function delete($id): mixed
     {
         try {
             if (Post::where('id', $id)->exists()) {
@@ -38,6 +50,6 @@ class PostController extends Controller
             return response()->json('error', 500);
         }
 
-        return response()->json('error', 500);
+        return response()->json('error', 200);
     }
 }

@@ -24,7 +24,6 @@ class CommentCreateRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'post_id' => 'required|exists:posts,id',
             'content' => ['required','string' , new RuleAbbreviation()]

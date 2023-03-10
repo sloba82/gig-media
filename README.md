@@ -1,10 +1,11 @@
 
 ## GIG MEDIA test
 
-- .env is provided in root of the project, please change credentials to yours (DB_DATABASE=, DB_USERNAME=, DB_PASSWORD=)
+- .env is provided in root of the project, please change credentials to yours (DB_DATABASE=, DB_USERNAME=, DB_PASSWORD=).
+- Also postmen collection is provided in root of the project.
 
 
-Clone the repo and please run next commands in your terminal
+Clone the repo and please run next commands in your terminal.
 
 ```sh
 - composer install

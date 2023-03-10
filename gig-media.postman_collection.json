@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "ea751d73-4e9a-42b6-b310-9f93f315a7d5",
+		"name": "gig-media",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/posts?page=1&limit=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "topic",
+							"value": "neque",
+							"disabled": true
+						},
+						{
+							"key": "test",
+							"value": "aaa",
+							"disabled": true
+						},
+						{
+							"key": "created_at",
+							"value": "2023-03-07",
+							"disabled": true
+						},
+						{
+							"key": "with",
+							"value": "comments",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "id",
+							"disabled": true
+						},
+						{
+							"key": "direction",
+							"value": "desc",
+							"disabled": true
+						},
+						{
+							"key": "comment",
+							"value": "joost italy vegeta php beautiful horrible great nice laughing funny strange cool",
+							"description": "joost italy vegeta php beautiful horrible great nice laughing funny strange cool",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /comments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/comments?page=1&limit=10&sort=id&direction=desc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "abbreviation",
+							"value": "bga",
+							"disabled": true
+						},
+						{
+							"key": "test",
+							"value": "aaa",
+							"disabled": true
+						},
+						{
+							"key": "created_at",
+							"value": "2023-03-06",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "id"
+						},
+						{
+							"key": "direction",
+							"value": "desc"
+						},
+						{
+							"key": "with",
+							"value": "post",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /comments/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/comments/3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comments",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /posts/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/posts/5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posts",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE /comments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "post_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "wd wew te tt rft fgfew ewre we",
+							"type": "text"
+						},
+						{
+							"key": "abbreviation",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/comments",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": "eewqc ewrewc  rfasdverf",
+							"disabled": true
+						},
+						{
+							"key": "abbreviation",
+							"value": "Qret ry",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -53,4 +53,5 @@ class RuleAbbreviation implements Rule
     {
         return 'Duplicate record.';
     }
+
 }

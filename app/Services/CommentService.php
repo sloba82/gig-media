@@ -8,6 +8,8 @@ use App\Services\AbstractService;
 class CommentService extends AbstractService
 {
 
+    private $model;
+
     /**
      * __construct
      *
@@ -16,6 +18,7 @@ class CommentService extends AbstractService
      */
     public function __construct(Comment $model)
     {
+        $this->model = $model;
         parent::__construct($model);
     }
 
@@ -29,5 +32,17 @@ class CommentService extends AbstractService
     {
         $this->withRelation = isset($filters['with']) ? $filters['with'] : '';
         return $this->modelWithPagination($filters);
+    }
+
+    public function create(array $input)
+    {
+        $text = $input['content'];
+        $this->model::create([
+            'post_id' => $input['post_id'],
+            'content' => $text,
+            'abbreviation' => $text,
+        ]);
+
+        return $this->model->id;
     }
 }

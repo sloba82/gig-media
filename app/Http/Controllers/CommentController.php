@@ -16,19 +16,31 @@ use Symfony\Component\HttpFoundation\JsonResponse as HttpFoundationJsonResponse;
 class CommentController extends Controller
 {
 
+    private $commentService;
+
+    /**
+     * __construct
+     *
+     * @param  CommentService $commentService
+     * @return void
+     */
+    public function __construct(CommentService $commentService)
+    {
+        $this->commentService = $commentService;
+    }
+
     /**
      * index
      *
      * @param  CommentGetRequest $request
      * @param  CommentService $commentService
-     * @return void
+     * @return GetResource
      */
-    public function index(CommentGetRequest $request, CommentService $commentService): GetResource
+    public function index(CommentGetRequest $request): GetResource
     {
-
         $filters = $request->validated();
         try {
-            $model = $commentService->getResourceWithPagination($filters);
+            $model = $this->commentService->getResourceWithPagination($filters);
         } catch (\Exception $exception) {
             Log::error('Error while getting Comment' . $exception->getMessage());
             return response()->json('error', 500);
@@ -67,14 +79,9 @@ class CommentController extends Controller
      */
     public function create(CommentCreateRequest $request, Comment $comment): JsonResponse
     {
-        $input = $request->all();
+        $input = $request->validated();
         try {
-            $input = $request->all();
-            $comment::create([
-                'post_id' => $input['post_id'],
-                'content' => $input['content'],
-                'abbreviation' => $input['content'],
-            ]);
+            $this->commentService->create($input);
         } catch (\Exception $exception) {
             Log::error('Error while Creating Comment' . $exception->getMessage());
             return response()->json('error', 500);
